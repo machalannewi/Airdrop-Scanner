@@ -9,9 +9,13 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
+    const endpoint = selectedChain === 'ethereum' 
+    ? 'http://localhost:5000/api/check-eth'
+    : 'http://localhost:5000/api/check-sol';
   
     try {
-      const response = await fetch('http://localhost:5000/api/check', {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ walletAddress, selectedChain }),
