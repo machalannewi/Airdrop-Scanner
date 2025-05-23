@@ -1,4 +1,24 @@
+import * as React from "react"
 import { useState } from 'react';
+import { Loader2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { SendHorizontal } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import "./global.css"
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+
+
+
 
 function App() {
   const [walletAddress, setWalletAddress] = useState('');
@@ -37,21 +57,24 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen text-white"> 
       {/* Header */}
-      <header className="bg-blue-600 text-white p-4 shadow-md">
-        <h1 className="text-2xl font-bold text-center">Airdrop Checker</h1>
+      <header className=" text-white p-4 shadow-md">
+        <h1 className="text-2xl font-bold text-center">Check For Unclaimed Airdrop</h1>
       </header>
 
+
+
       {/* Main Form */}
-      <main className="max-w-2xl mx-auto p-4 mt-8">
-        <div className="bg-white rounded-lg shadow-md p-6">
+      <main className="max-w-2xl mx-auto p-4 mt-8 rounded-[22px] opacity-100">
+        <div className="glass-card p-6 rounded-2xl backdrop-blur-lg"
+        >
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
+              <label className="font-semibold block text-white font-medium mb-2">
                 Wallet Address
               </label>
-              <input
+              <Input
                 type="text"
                 value={walletAddress}
                 onChange={(e) => setWalletAddress(e.target.value)}
@@ -62,10 +85,10 @@ function App() {
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 font-medium mb-2">
+              <label className="font-semibold block text-white font-medium mb-2">
                 Blockchain
               </label>
-              <select
+              {/* <select
                 value={selectedChain}
                 onChange={(e) => setSelectedChain(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
@@ -73,31 +96,49 @@ function App() {
                 <option value="ethereum">Ethereum</option>
                 <option value="solana">Solana</option>
                 <option value="arbitrum">Arbitrum</option>
-              </select>
+              </select> */}
+
+
+
+              <Select 
+              value={selectedChain}
+              onValueChange={(value) => setSelectedChain(value)}
+                >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select A Chain" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="ethereum">ETHEREUM</SelectItem>
+                  <SelectItem value="solana">SOLANA</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
             </div>
 
-            <button
+            <Button 
               type="submit"
               disabled={isLoading}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 disabled:opacity-50"
+              className="font-semibold bg-[#031457] cursor-pointer"
             >
-              {isLoading ? 'Checking...' : 'Check Eligibility'}
-            </button>
+                {isLoading ? (
+                  <>
+                    <Loader2 className="animate-spin" />
+                    Checking...
+                  </>
+                ) : (
+                  <>
+                    Check Eligibility
+                    <SendHorizontal/>
+                  </>
+                )}
+            </Button>
           </form>
         </div>
 
-
-        {/* {results.length === 0 && !isLoading && (
-        <p className="text-gray-500 mt-4">
-          {selectedChain === 'solana'
-            ? "No eligible Solana airdrops found." 
-            : "No eligible airdrops found."}
-        </p>
-       )} */}
-
         {/* Results Table */}
         {results.length > 0 && (
-          <div className="mt-8 bg-white rounded-lg shadow-md p-6">
+          <div className="mt-8 glass-card p-6 rounded-2xl backdrop-blur-lg">
             <h2 className="text-xl font-bold mb-4">Airdrop Results</h2>
             <table className="w-full">
               <thead>
@@ -109,7 +150,7 @@ function App() {
               </thead>
               <tbody>
                 {results.map((airdrop, index) => (
-                  <tr key={index} className="border-b hover:bg-gray-50">
+                  <tr key={index} className="border-b">
                     <td className="p-3">{airdrop.name}</td>
                     <td className="p-3">
                       {airdrop.eligible ? (
@@ -120,14 +161,16 @@ function App() {
                     </td>
                     <td className="p-3">
                       {airdrop.eligible && (
+                        <Button className="font-semibold bg-[#031457]">
                         <a
                           href={airdrop.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-600 hover:underline"
+                          className="text-white"
                         >
                           Claim
                         </a>
+                        </Button>
                       )}
                     </td>
                   </tr>
@@ -140,5 +183,7 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;
