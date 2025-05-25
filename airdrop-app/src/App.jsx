@@ -31,8 +31,8 @@ function App() {
     setIsLoading(true);
 
     const endpoint = selectedChain === 'ethereum' 
-    ? 'http://localhost:5000/api/check-eth'
-    : 'http://localhost:5000/api/check-sol';
+    ? 'https://airdrop-scanner.onrender.com/api/check-eth'
+    : 'https://airdrop-scanner.onrender.com/api/check-sol';
   
     try {
       const response = await fetch(endpoint, {
