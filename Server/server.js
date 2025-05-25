@@ -16,7 +16,7 @@ const app = express();
 // Middleware
 app.use(cors(
     {
-        origin: 'https://airdrop-scanner.vercel.app/',
+        origin: 'https://airdrop-scanner.vercel.app',
         methods: ['POST', 'GET'],
         credentials: true,
     }
