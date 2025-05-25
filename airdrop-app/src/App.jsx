@@ -22,7 +22,7 @@ import {
 
 function App() {
   const [walletAddress, setWalletAddress] = useState('');
-  const [selectedChain, setSelectedChain] = useState('ethereum');
+  const [selectedChain, setSelectedChain] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState([]);
 
@@ -88,21 +88,13 @@ function App() {
               <label className="font-semibold block text-white font-medium mb-2">
                 Blockchain
               </label>
-              {/* <select
-                value={selectedChain}
-                onChange={(e) => setSelectedChain(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="ethereum">Ethereum</option>
-                <option value="solana">Solana</option>
-                <option value="arbitrum">Arbitrum</option>
-              </select> */}
 
 
 
               <Select 
               value={selectedChain}
               onValueChange={(value) => setSelectedChain(value)}
+              className="select"
                 >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select A Chain" />
