@@ -11,7 +11,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -48,6 +47,8 @@ function App() {
 
       const data = await response.json();
       setResults(data);
+      setWalletAddress("");
+      setSelectedChain("");
     } catch (error) {
       console.error("Error checking airdrops:", error);
       alert("Failed to check eligibility. See console for details.");

@@ -117,6 +117,7 @@ app.use(express.json());
       ];
   
       res.json(results);
+      
     } catch (err) {
       console.error("Helius error:", err);
       res.status(500).json({ error: "Failed to check eligibility" });
